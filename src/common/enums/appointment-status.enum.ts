@@ -1,0 +1,5 @@
+export enum EAppointmentStatus {
+  PROGRAMMED = 'PROGRAMMED',
+  ATTENDED = 'ATTENDED',
+  NOT_ATTENDED = 'NOT_ATTENDED'
+}
