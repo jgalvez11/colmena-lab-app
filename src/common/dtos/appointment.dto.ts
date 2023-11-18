@@ -1,5 +1,5 @@
 import { EAppointmentStatus } from '../enums/appointment-status.enum';
-import { IsNotEmpty, MaxLength, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AppointmentDto {
@@ -19,13 +19,11 @@ export class AppointmentDto {
   @ApiProperty({ description: 'Identificación del paciente', required: true })
   @IsNotEmpty()
   @IsNumber()
-  @MaxLength(20)
   patientId: number;
 
   @ApiProperty({ description: 'Identificación del médico', required: true })
   @IsNotEmpty()
   @IsNumber()
-  @MaxLength(20)
   doctorId: number;
 
   createdAt: Date;
