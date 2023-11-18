@@ -8,8 +8,8 @@ import {
   Body
 } from '@nestjs/common';
 import { PatientService } from '../service/patient.service';
-import { Patient } from 'src/common/entities/patient.entity';
-import { PatientDto } from 'src/common/dtos/patient.dto';
+import { Patient } from '../../../common/entities/patient.entity';
+import { PatientDto } from '../../../common/dtos/patient.dto';
 
 @Controller('patient')
 export class PatientController {

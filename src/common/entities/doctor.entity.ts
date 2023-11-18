@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany
 } from 'typeorm';
-import { Appointment } from './appointment.entity.js';
+import { Appointment } from './appointment.entity';
 
 @Entity()
 export class Doctor {
