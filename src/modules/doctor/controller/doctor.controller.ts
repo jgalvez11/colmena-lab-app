@@ -25,6 +25,11 @@ export class DoctorController {
     return this.doctorsService.findOne(id);
   }
 
+  @Get('availability/:date')
+  async findByDate(@Param('date') date: Date): Promise<Doctor[]> {
+    return this.doctorsService.findAvailableDoctorsForDate(date);
+  }
+
   @Post()
   async create(@Body() doctorDto: DoctorDto): Promise<Doctor> {
     return this.doctorsService.create(doctorDto);

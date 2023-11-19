@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppointmentDto } from '../../../common/dtos/appointment.dto';
 import { Appointment } from '../../../common/entities/appointment.entity';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 
 @Injectable()
 export class AppointmentService {
@@ -16,8 +16,28 @@ export class AppointmentService {
   }
 
   async findOne(appointmentId: number): Promise<Appointment> {
-    return await this.appointmentRepository.findOne({
+    const appointment = await this.appointmentRepository.findOne({
       where: { appointmentId }
+    });
+
+    if (!appointment) {
+      throw new NotFoundException(
+        `Appointment with ID ${appointmentId} not found`
+      );
+    }
+
+    return appointment;
+  }
+
+  async findByIdentification(identification: string): Promise<Appointment[]> {
+    return await this.appointmentRepository.find({
+      where: [{ doctor: { identification } }, { patient: { identification } }]
+    });
+  }
+
+  async findByDate(date: Date): Promise<Appointment[]> {
+    return await this.appointmentRepository.find({
+      where: { date: MoreThan(date) }
     });
   }
 
