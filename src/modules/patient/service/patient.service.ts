@@ -37,6 +37,7 @@ export class PatientService {
   }
 
   async remove(patientId: number): Promise<void> {
+    await this.findOne(patientId);
     await this.patientRepository.delete(patientId);
   }
 }

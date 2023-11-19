@@ -37,6 +37,7 @@ export class SpecialtyService {
   }
 
   async remove(specialtyId: number): Promise<void> {
+    await this.findOne(specialtyId);
     await this.specialtyRepository.delete(specialtyId);
   }
 }

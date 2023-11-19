@@ -37,6 +37,8 @@ export class MedicalOrder {
   @JoinColumn({ name: 'appointment_id' })
   appointment: Appointment;
 
-  @OneToMany(() => MedicalOrderMedicine, (relation) => relation.order)
+  @OneToMany(() => MedicalOrderMedicine, (relation) => relation.order, {
+    eager: true
+  })
   medicalOrderMedicines: MedicalOrderMedicine[];
 }

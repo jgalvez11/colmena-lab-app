@@ -18,7 +18,9 @@ export class MedicalOrderMedicine {
   @JoinColumn({ name: 'order_id' })
   order: MedicalOrder;
 
-  @ManyToOne(() => Medicine, (medicine) => medicine.medicalOrderMedicines)
+  @ManyToOne(() => Medicine, (medicine) => medicine.medicalOrderMedicines, {
+    eager: true
+  })
   @JoinColumn({ name: 'medicine_id' })
   medicine: Medicine;
 

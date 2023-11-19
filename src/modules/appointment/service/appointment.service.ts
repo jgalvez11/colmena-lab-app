@@ -35,6 +35,7 @@ export class AppointmentService {
   }
 
   async remove(id: number): Promise<void> {
+    await this.findOne(id);
     await this.appointmentRepository.delete(id);
   }
 }
