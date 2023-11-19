@@ -8,13 +8,17 @@ import { DoctorModule } from './modules/doctor/doctor.module';
 import { PatientModule } from './modules/patient/patient.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ErrorInterceptor } from './common/interceptors/error/error.interceptor';
+import { MedicineModule } from './modules/medicine/medicine.module';
+import { SpecialtyModule } from './modules/specialty/specialty.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     AppointmentModule,
     DoctorModule,
-    PatientModule
+    PatientModule,
+    MedicineModule,
+    SpecialtyModule
   ],
   controllers: [AppController],
   providers: [
