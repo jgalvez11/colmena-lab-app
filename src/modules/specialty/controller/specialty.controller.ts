@@ -8,8 +8,8 @@ import {
   Delete
 } from '@nestjs/common';
 import { SpecialtyService } from '../service/specialty.service';
-import { Specialty } from 'src/common/entities/specialty.entity';
-import { SpecialtyDto } from 'src/common/dtos/specialty.dto';
+import { Specialty } from '../../../common/entities/specialty.entity';
+import { SpecialtyDto } from '../../../common/dtos/specialty.dto';
 
 @Controller('specialty')
 export class SpecialtyController {

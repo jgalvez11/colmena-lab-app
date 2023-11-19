@@ -5,7 +5,7 @@ import { AppointmentRepositoryMock } from '../../../../test/mocks/appointment-re
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Appointment } from '../../../common/entities/appointment.entity';
 import { EAppointmentStatus } from '../../../common/enums/appointment-status.enum';
-import { AppointmentDto } from 'src/common/dtos/appointment.dto';
+import { AppointmentDto } from '../../../common/dtos/appointment.dto';
 
 const appointmentDto: AppointmentDto = {
   appointmentId: 1,

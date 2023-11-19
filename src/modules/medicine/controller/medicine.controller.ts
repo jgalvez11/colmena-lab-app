@@ -8,8 +8,8 @@ import {
   Delete
 } from '@nestjs/common';
 import { MedicineService } from '../service/medicine.service';
-import { Medicine } from 'src/common/entities/medicine.entity';
-import { MedicineDto } from 'src/common/dtos/medicine.dto';
+import { Medicine } from '../../../common/entities/medicine.entity';
+import { MedicineDto } from '../../../common/dtos/medicine.dto';
 
 @Controller('medicine')
 export class MedicineController {
