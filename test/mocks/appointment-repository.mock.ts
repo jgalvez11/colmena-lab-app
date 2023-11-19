@@ -2,14 +2,22 @@ import { AppointmentDto } from '../../src/common/dtos/appointment.dto';
 import { Appointment } from '../../src/common/entities/appointment.entity';
 
 export class AppointmentRepositoryMock {
-  private readonly appointments: Appointment[] = [];
+  private readonly _appointments: Appointment[] = [];
 
-  async find(): Promise<Appointment[]> {
-    return this.appointments;
+  get appointments(): Appointment[] {
+    return this._appointments;
   }
 
-  async findOneBy(appointmentId: number): Promise<Appointment | undefined> {
-    return this.appointments.find(
+  set appointments(appointment: Appointment[]) {
+    this._appointments.push(...appointment);
+  }
+
+  async find(): Promise<Appointment[]> {
+    return this._appointments;
+  }
+
+  async findOne(appointmentId: number): Promise<Appointment | undefined> {
+    return this._appointments.find(
       (appointment) => appointment.appointmentId === appointmentId
     );
   }
@@ -17,7 +25,7 @@ export class AppointmentRepositoryMock {
   async create(appointmentDto: AppointmentDto): Promise<Appointment> {
     const appointment = new Appointment();
     Object.assign(appointment, appointmentDto);
-    this.appointments.push(appointment);
+    this._appointments.push(appointment);
     return appointment;
   }
 
@@ -30,23 +38,23 @@ export class AppointmentRepositoryMock {
   }
 
   async save(appointment: Appointment): Promise<Appointment> {
-    const existingAppointment = this.appointments.find(
+    const existingAppointment = this._appointments.find(
       (p) => p.appointmentId === appointment.appointmentId
     );
     if (existingAppointment) {
       Object.assign(existingAppointment, appointment);
       return existingAppointment;
     }
-    this.appointments.push(appointment);
+    this._appointments.push(appointment);
     return appointment;
   }
 
   async delete(appointmentId: number): Promise<void> {
-    const index = this.appointments.findIndex(
+    const index = this._appointments.findIndex(
       (appointment) => appointment.appointmentId === appointmentId
     );
     if (index !== -1) {
-      this.appointments.splice(index, 1);
+      this._appointments.splice(index, 1);
     }
   }
 }

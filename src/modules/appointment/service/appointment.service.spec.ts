@@ -26,8 +26,18 @@ describe('AppointmentService', () => {
     service = module.get<AppointmentService>(AppointmentService);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should return all appointments', async () => {
+    const appointment = await service.findAll();
+    expect(appointment).toBeDefined();
+    expect(appointment.length).toBe(0);
   });
 
   it('should create an appointment', async () => {
