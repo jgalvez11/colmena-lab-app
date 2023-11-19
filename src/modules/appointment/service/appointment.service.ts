@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppointmentDto } from 'src/common/dtos/appointment.dto';
-import { Appointment } from 'src/common/entities/appointment.entity';
+import { AppointmentDto } from '../../../common/dtos/appointment.dto';
+import { Appointment } from '../../../common/entities/appointment.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -16,7 +16,9 @@ export class AppointmentService {
   }
 
   async findOne(appointmentId: number): Promise<Appointment> {
-    return await this.appointmentRepository.findOneBy({ appointmentId });
+    return await this.appointmentRepository.findOne({
+      where: { appointmentId }
+    });
   }
 
   async create(appointmentDto: AppointmentDto): Promise<Appointment> {

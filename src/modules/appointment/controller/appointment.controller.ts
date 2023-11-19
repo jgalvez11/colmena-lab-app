@@ -8,7 +8,7 @@ import {
   Body
 } from '@nestjs/common';
 import { AppointmentService } from '../service/appointment.service';
-import { AppointmentDto } from 'src/common/dtos/appointment.dto';
+import { AppointmentDto } from '../../../common/dtos/appointment.dto';
 
 @Controller('appointment')
 export class AppointmentController {
