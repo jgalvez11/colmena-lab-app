@@ -6,7 +6,13 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Appointment } from '../../../common/entities/appointment.entity';
 import { EAppointmentStatus } from '../../../common/enums/appointment-status.enum';
 import { AppointmentDto } from '../../../common/dtos/appointment.dto';
-import { DoctorModule } from '../../../modules/doctor/doctor.module';
+import { DataSource } from 'typeorm';
+import { DoctorService } from '../../../modules/doctor/service/doctor.service';
+import { PatientService } from '../../../modules/patient/service/patient.service';
+import { DoctorAvailabilityService } from '../../../modules/doctor-availability/service/doctor-availability.service';
+import { Doctor } from '../../../common/entities/doctor.entity';
+import { Patient } from '../../../common/entities/patient.entity';
+import { DoctorAvailability } from '../../../common/entities/doctor-availability.entity';
 
 const appointmentDto: AppointmentDto = {
   appointmentId: 1,
@@ -40,12 +46,41 @@ describe('AppointmentController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AppointmentController],
-      imports: [DoctorModule],
       providers: [
         AppointmentService,
+        DoctorService,
+        PatientService,
+        DoctorAvailabilityService,
         {
           provide: getRepositoryToken(Appointment),
           useValue: appointmentRepository
+        },
+        {
+          provide: getRepositoryToken(DataSource),
+          useValue: {
+            name: jest.fn()
+          }
+        },
+        {
+          provide: getRepositoryToken(Doctor),
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn()
+          }
+        },
+        {
+          provide: getRepositoryToken(Patient),
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn()
+          }
+        },
+        {
+          provide: getRepositoryToken(DoctorAvailability),
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn()
+          }
         }
       ]
     }).compile();
