@@ -3,12 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AppointmentDto } from '../../../common/dtos/appointment.dto';
 import { Appointment } from '../../../common/entities/appointment.entity';
 import { MoreThan, Repository } from 'typeorm';
+import { DoctorService } from '../../../modules/doctor/service/doctor.service';
+import { PatientService } from '../../../modules/patient/service/patient.service';
+import { DoctorAvailabilityService } from 'src/modules/doctor-availability/service/doctor-availability.service';
 
 @Injectable()
 export class AppointmentService {
   constructor(
     @InjectRepository(Appointment)
-    private appointmentRepository: Repository<Appointment>
+    private appointmentRepository: Repository<Appointment>,
+    private doctorService: DoctorService,
+    private patientService: PatientService,
+    private doctorAvailabilityService: DoctorAvailabilityService
   ) {}
 
   async findAll(): Promise<Appointment[]> {
@@ -42,6 +48,13 @@ export class AppointmentService {
   }
 
   async create(appointmentDto: AppointmentDto): Promise<Appointment> {
+    await this.doctorService.findOne(appointmentDto.doctorId);
+    await this.patientService.findOne(appointmentDto.patientId);
+
+    await this.doctorAvailabilityService.findByDoctorIdAndDate(
+      appointmentDto.doctorId,
+      appointmentDto.date
+    );
     const newAppointment = this.appointmentRepository.create(appointmentDto);
     return await this.appointmentRepository.save(newAppointment);
   }
@@ -50,8 +63,16 @@ export class AppointmentService {
     appointmentId: number,
     appointmentDto: AppointmentDto
   ): Promise<Appointment> {
+    await this.findOne(appointmentId);
+    await this.doctorService.findOne(appointmentDto.doctorId);
+    await this.patientService.findOne(appointmentDto.patientId);
+    await this.doctorAvailabilityService.findByDoctorIdAndDate(
+      appointmentDto.doctorId,
+      appointmentDto.date
+    );
     await this.appointmentRepository.update(appointmentId, appointmentDto);
-    return await this.appointmentRepository.findOneBy({ appointmentId });
+    const result = await this.appointmentRepository.findOneBy({ appointmentId });
+    return result;
   }
 
   async remove(id: number): Promise<void> {

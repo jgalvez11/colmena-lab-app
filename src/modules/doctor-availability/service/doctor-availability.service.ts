@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DoctorAvailabilityDto } from '../../../common/dtos/doctor-availability.dto';
 import { DoctorAvailability } from '../../../common/entities/doctor-availability.entity';
 import { DoctorService } from '../../../modules/doctor/service/doctor.service';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 
 @Injectable()
 export class DoctorAvailabilityService {
@@ -15,6 +15,31 @@ export class DoctorAvailabilityService {
 
   async findAll(): Promise<DoctorAvailability[]> {
     return await this.doctorAvailabilityRepository.find();
+  }
+
+  async findByDoctorIdAndDate(
+    doctorId: number,
+    date: Date
+  ): Promise<DoctorAvailability> {
+    const startDate = new Date(date);
+    const endDate = new Date(startDate.getTime());
+    endDate.setDate(endDate.getDate() + 1);
+
+    const doctorAvailability = await this.doctorAvailabilityRepository.findOne({
+      where: {
+        doctorId,
+        date: Between(startDate, endDate),
+        available: true
+      }
+    });
+
+    if (!doctorAvailability) {
+      throw new NotFoundException(
+        `DoctorAvailability with ID ${doctorId} and date ${startDate} not found`
+      );
+    }
+
+    return doctorAvailability;
   }
 
   async findOne(availabilityId: number): Promise<DoctorAvailability> {
