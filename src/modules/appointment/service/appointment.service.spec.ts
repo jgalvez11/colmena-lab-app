@@ -2,9 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppointmentService } from './appointment.service';
 import { Appointment } from '../../../common/entities/appointment.entity';
 import { AppointmentDto } from '../../../common/dtos/appointment.dto';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { EAppointmentStatus } from '../../../common/enums/appointment-status.enum';
 import { AppointmentRepositoryMock } from '../../../../test/mocks/appointment-repository.mock';
+import { DoctorModule } from '../../../modules/doctor/doctor.module';
+import { PatientModule } from '../../../modules/patient/patient.module';
+import { DoctorAvailabilityModule } from '../../../modules/doctor-availability/doctor-availability.module';
+import { DataSource } from 'typeorm';
 
 describe('AppointmentService', () => {
   let service: AppointmentService;
@@ -14,8 +18,18 @@ describe('AppointmentService', () => {
     appointmentRepository = new AppointmentRepositoryMock();
 
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        TypeOrmModule,
+        DoctorModule,
+        PatientModule,
+        DoctorAvailabilityModule
+      ],
       providers: [
         AppointmentService,
+        {
+          provide: DataSource,
+          useValue: {}
+        },
         {
           provide: getRepositoryToken(Appointment),
           useValue: appointmentRepository

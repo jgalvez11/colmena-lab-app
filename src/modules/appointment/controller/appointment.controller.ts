@@ -24,6 +24,16 @@ export class AppointmentController {
     return this.appointmentService.findOne(id);
   }
 
+  @Get('by-identification/:id')
+  findOneByIdentification(@Param('id') id: string) {
+    return this.appointmentService.findByIdentification(id);
+  }
+
+  @Get('by-date/:date')
+  findOneByDate(@Param('date') date: Date) {
+    return this.appointmentService.findByDate(date);
+  }
+
   @Post()
   create(@Body() appointmentDto: AppointmentDto) {
     return this.appointmentService.create(appointmentDto);

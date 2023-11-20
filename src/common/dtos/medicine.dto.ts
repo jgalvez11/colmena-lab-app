@@ -11,6 +11,6 @@ export class MedicineDto {
   @ApiProperty({ description: 'Descripción de la medicina', required: true })
   @IsNotEmpty()
   @IsString()
-  @MaxLength(50)
+  @MaxLength(500)
   description: string;
 }

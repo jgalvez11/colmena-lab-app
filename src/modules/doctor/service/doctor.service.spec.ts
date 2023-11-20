@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DoctorService } from './doctor.service';
-import { doctorRepositoryMock } from '../../../../test/mocks/doctor-repository.mock';
+import { DoctorRepositoryMock } from '../../../../test/mocks/doctor-repository.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Doctor } from '../../../common/entities/doctor.entity';
 import { DoctorDto } from '../../../common/dtos/doctor.dto';
 
 describe('DoctorService', () => {
   let service: DoctorService;
-  let doctorRepository: doctorRepositoryMock;
+  let doctorRepository: DoctorRepositoryMock;
 
   beforeEach(async () => {
-    doctorRepository = new doctorRepositoryMock();
+    doctorRepository = new DoctorRepositoryMock();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         DoctorService,

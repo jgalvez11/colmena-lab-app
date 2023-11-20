@@ -7,6 +7,7 @@ import {
   OneToMany
 } from 'typeorm';
 import { Appointment } from './appointment.entity';
+import { DoctorAvailability } from './doctor-availability.entity';
 
 @Entity()
 export class Doctor {
@@ -48,6 +49,9 @@ export class Doctor {
 
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
   updatedAt: Date;
+
+  @OneToMany(() => DoctorAvailability, (availability) => availability.doctor)
+  doctorAvailabilities: DoctorAvailability[];
 
   @OneToMany(() => Appointment, (appointment) => appointment.patientId)
   appointments: Appointment[];

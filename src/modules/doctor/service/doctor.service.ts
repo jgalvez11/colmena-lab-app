@@ -16,11 +16,38 @@ export class DoctorService {
   }
 
   async findOne(doctorId: number): Promise<Doctor> {
-    const doctor = await this.doctorRepository.findOneBy({ doctorId });
+    const doctor = await this.doctorRepository.findOne({
+      where: [
+        {
+          doctorId
+        },
+        {
+          identification: String(doctorId)
+        }
+      ]
+    });
     if (!doctor) {
       throw new NotFoundException(`Doctor with ID ${doctorId} not found`);
     }
     return doctor;
+  }
+
+  async findAvailableDoctorsForDate(date: Date): Promise<Doctor[]> {
+    const startDate = new Date(date);
+    const endDate = new Date(startDate.getTime());
+    endDate.setDate(endDate.getDate() + 1);
+
+    return await this.doctorRepository
+      .createQueryBuilder('doctor')
+      .innerJoin('doctor.doctorAvailabilities', 'availability')
+      .where(
+        'availability.date >= :startDate AND availability.date < :endDate AND availability.available = true',
+        {
+          startDate,
+          endDate
+        }
+      )
+      .getMany();
   }
 
   async create(doctorDto: DoctorDto): Promise<Doctor> {
@@ -35,6 +62,7 @@ export class DoctorService {
   }
 
   async remove(doctorId: number): Promise<void> {
+    await this.findOne(doctorId);
     await this.doctorRepository.delete(doctorId);
   }
 }
