@@ -5,7 +5,7 @@ import { AppointmentService } from '../../../modules/appointment/service/appoint
 import { SpecialtyService } from '../../../modules/specialty/service/specialty.service';
 import { DataSource, Repository } from 'typeorm';
 import { MedicalOrderDto } from '../../../common/dtos/medical-order.dto';
-import { MedicalOrderMedicineService } from 'src/modules/medical-order-medicine/service/medical-order-medicine.service';
+import { MedicalOrderMedicineService } from '../../../modules/medical-order-medicine/service/medical-order-medicine.service';
 
 @Injectable()
 export class MedicalOrderService {

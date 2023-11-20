@@ -6,6 +6,7 @@ import { MedicalOrder } from '../../common/entities/medical-order.entity';
 import { AppointmentModule } from '../appointment/appointment.module';
 import { MedicalOrderMedicineModule } from '../medical-order-medicine/medical-order-medicine.module';
 import { SpecialtyModule } from '../specialty/specialty.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { SpecialtyModule } from '../specialty/specialty.module';
     MedicalOrderMedicineModule
   ],
   controllers: [MedicalOrderController],
-  providers: [MedicalOrderService],
+  providers: [MedicalOrderService, DataSource],
   exports: [TypeOrmModule, MedicalOrderService]
 })
 export class MedicalOrderModule {}

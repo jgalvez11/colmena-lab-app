@@ -6,6 +6,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Appointment } from '../../../common/entities/appointment.entity';
 import { EAppointmentStatus } from '../../../common/enums/appointment-status.enum';
 import { AppointmentDto } from '../../../common/dtos/appointment.dto';
+import { DoctorModule } from '../../../modules/doctor/doctor.module';
 
 const appointmentDto: AppointmentDto = {
   appointmentId: 1,
@@ -39,6 +40,7 @@ describe('AppointmentController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AppointmentController],
+      imports: [DoctorModule],
       providers: [
         AppointmentService,
         {

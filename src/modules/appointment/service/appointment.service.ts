@@ -5,7 +5,7 @@ import { Appointment } from '../../../common/entities/appointment.entity';
 import { MoreThan, Repository } from 'typeorm';
 import { DoctorService } from '../../../modules/doctor/service/doctor.service';
 import { PatientService } from '../../../modules/patient/service/patient.service';
-import { DoctorAvailabilityService } from 'src/modules/doctor-availability/service/doctor-availability.service';
+import { DoctorAvailabilityService } from '../../../modules/doctor-availability/service/doctor-availability.service';
 
 @Injectable()
 export class AppointmentService {

@@ -13,6 +13,7 @@ import { SpecialtyModule } from './modules/specialty/specialty.module';
 import { DoctorAvailabilityModule } from './modules/doctor-availability/doctor-availability.module';
 import { MedicalOrderModule } from './modules/medical-order/medical-order.module';
 import { MedicalOrderMedicineModule } from './modules/medical-order-medicine/medical-order-medicine.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { MedicalOrderMedicineModule } from './modules/medical-order-medicine/med
   controllers: [AppController],
   providers: [
     AppService,
+    DataSource,
     {
       provide: APP_INTERCEPTOR,
       useClass: ErrorInterceptor

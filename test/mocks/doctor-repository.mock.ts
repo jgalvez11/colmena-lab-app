@@ -1,7 +1,7 @@
 import { DoctorDto } from '../../src/common/dtos/doctor.dto';
 import { Doctor } from '../../src/common/entities/doctor.entity';
 
-export class doctorRepositoryMock {
+export class DoctorRepositoryMock {
   private readonly doctors: Doctor[] = [];
 
   async find(): Promise<Doctor[]> {
