@@ -24,14 +24,27 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 El hospital ColmenaLab requiere un microservicio que permita gestionar algunos procesos internos de la institución a través de un API, estos procesos están definidos por módulos y para cumplir con este requerimiento se deben tener en cuenta las siguientes consideraciones:
 
-# Crear un API con los métodos CRUD de cada uno de los módulos.
-# Plantear la mejor solución usando NestJS para exponer los EndPoints que dé cumplimiento al requerimiento de cada módulo.
-# El microservicio debe contener varias capas, por ejemplo: Controlador, Servicio, Acceso a datos, utilice las capas que consideres óptimas para esta solución.
-# Utilizar un ORM de libre elección para gestionar la comunicación entre el microservicio y la base de datos.
+1. Crear un API con los métodos CRUD de cada uno de los módulos.
+2. Plantear la mejor solución usando NestJS para exponer los EndPoints que dé cumplimiento al requerimiento de cada módulo.
+3. El microservicio debe contener varias capas, por ejemplo: Controlador, Servicio, Acceso a datos, utilice las capas que consideres óptimas para esta solución.
+4. Utilizar un ORM de libre elección para gestionar la comunicación entre el microservicio y la base de datos.
+
+## Configuration
+
+Add .env file with this variables:
+
+```bash
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=colmena
+POSTGRES_DATABASE=colmena_lab
+PORT=3000
+MODE=DEV
+RUN_MIGRATIONS=true
+```
 
 ## Installation LOCAL
 
