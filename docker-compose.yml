@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - NODE_ENV=development
+      target: development
+    env_file:
+    - .env     
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    volumes:
+      - .:/usr/src/app
+    command: npm run start
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - colmena_lab:/var/lib/postgresql/data
+
+volumes:
+  redis:
+    driver: local
+  colmena_lab:

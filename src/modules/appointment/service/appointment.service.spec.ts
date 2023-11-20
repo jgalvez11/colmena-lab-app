@@ -8,7 +8,6 @@ import { AppointmentRepositoryMock } from '../../../../test/mocks/appointment-re
 import { DoctorModule } from '../../../modules/doctor/doctor.module';
 import { PatientModule } from '../../../modules/patient/patient.module';
 import { DoctorAvailabilityModule } from '../../../modules/doctor-availability/doctor-availability.module';
-import { DataSource } from 'typeorm';
 
 describe('AppointmentService', () => {
   let service: AppointmentService;
@@ -26,10 +25,6 @@ describe('AppointmentService', () => {
       ],
       providers: [
         AppointmentService,
-        {
-          provide: DataSource,
-          useValue: {}
-        },
         {
           provide: getRepositoryToken(Appointment),
           useValue: appointmentRepository

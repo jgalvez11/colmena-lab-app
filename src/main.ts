@@ -17,8 +17,14 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  await app
-    .listen(PORT_NUMBER)
-    .then(() => console.log('App is runnning in port: ' + PORT_NUMBER));
+  await app.listen(PORT_NUMBER).then(
+    () => console.log('App is runnning in port: ' + PORT_NUMBER),
+    (err) => {
+      console.log('Not connect DB: ');
+      console.log(err);
+      console.log(PORT_NUMBER);
+      
+    }
+  );
 }
 bootstrap();
