@@ -26,10 +26,23 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+El hospital ColmenaLab requiere un microservicio que permita gestionar algunos procesos internos de la institución a través de un API, estos procesos están definidos por módulos y para cumplir con este requerimiento se deben tener en cuenta las siguientes consideraciones:
+
+# Crear un API con los métodos CRUD de cada uno de los módulos.
+# Plantear la mejor solución usando NestJS para exponer los EndPoints que dé cumplimiento al requerimiento de cada módulo.
+# El microservicio debe contener varias capas, por ejemplo: Controlador, Servicio, Acceso a datos, utilice las capas que consideres óptimas para esta solución.
+# Utilizar un ORM de libre elección para gestionar la comunicación entre el microservicio y la base de datos.
+
+## Installation LOCAL
 
 ```bash
 $ npm install
+```
+
+## Installation DOCKER
+
+```bash
+$ docker-compose up -d
 ```
 
 ## Running the app
@@ -51,12 +64,15 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
+
+## Documentation
+
+- Data Model based in dbdiagram.io [Data Model Postgres](https://dbdiagram.io/d/colmena_lab_db-6558e58f3be14957874242c0)
+- Repository [GitHub](https://github.com/jgalvez11/colmena-lab-app/tree/develop)
+- Swagger documentation [SwaggerUI](http://localhost:3000/swagger/docs)
 
 ## Support
 
