@@ -4,7 +4,7 @@ import { DoctorService } from '../../../modules/doctor/service/doctor.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { DoctorAvailability } from '../../../common/entities/doctor-availability.entity';
 import { DoctorAvailabilityDto } from '../../../common/dtos/doctor-availability.dto';
-import { DoctorModule } from '../../../modules/doctor/doctor.module';
+import { Doctor } from '../../../common/entities/doctor.entity';
 
 describe('DoctorAvailabilityService', () => {
   let doctorAvailabilityService: DoctorAvailabilityService;
@@ -12,11 +12,19 @@ describe('DoctorAvailabilityService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DoctorModule],
       providers: [
         DoctorAvailabilityService,
+        DoctorService,
         {
           provide: getRepositoryToken(DoctorAvailability),
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn(),
+            merge: jest.fn()
+          }
+        },
+        {
+          provide: getRepositoryToken(Doctor),
           useValue: {
             create: jest.fn(),
             save: jest.fn()

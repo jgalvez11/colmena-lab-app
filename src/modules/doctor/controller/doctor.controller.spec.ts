@@ -3,7 +3,7 @@ import { DoctorController } from './doctor.controller';
 import { DoctorDto } from '../../../common/dtos/doctor.dto';
 import { Doctor } from '../../../common/entities/doctor.entity';
 import { DoctorService } from '../service/doctor.service';
-import { doctorRepositoryMock } from '../../../../test/mocks/doctor-repository.mock';
+import { DoctorRepositoryMock } from '../../../../test/mocks/doctor-repository.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 const doctorDto: DoctorDto = {
@@ -36,16 +36,17 @@ const result: Doctor = {
   professionalCardNumber: '316548794651',
   createdAt: new Date(),
   updatedAt: null,
+  doctorAvailabilities: [],
   appointments: []
 };
 
 describe('DoctorController', () => {
   let controller: DoctorController;
   let doctorService: DoctorService;
-  let doctorRepository: doctorRepositoryMock;
+  let doctorRepository: DoctorRepositoryMock;
 
   beforeEach(async () => {
-    doctorRepository = new doctorRepositoryMock();
+    doctorRepository = new DoctorRepositoryMock();
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DoctorController],
       providers: [
